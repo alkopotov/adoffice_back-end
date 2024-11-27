@@ -41,12 +41,13 @@ app.use(cors({
     origin: '*'
 }));
 
-app.use(express.urlencoded());
+// Не уверен, что это ни на что не влияет - давало предупреждение deprecated
+// app.use(express.urlencoded());
+
+
 // app.use('/blogs', blog)
 // app.use('/works', work)
 app.use('/sites', site)
-
-
 
 
 app.use(express.json());
