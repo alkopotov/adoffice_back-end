@@ -24,6 +24,15 @@ router.get('/all', (req, res) => {
     .catch((err) => res.json(err));
 });
 
+router.get('/:id', (req, res) => {
+  Site.findByPk(
+    req.params.id,
+    {include: [Category, Seasonal, Adunit, Discount]}
+  )
+    .then((data) => res.json(data))
+    .catch((err) => res.json(err));
+});
+
 router.post('/', jsonParser, (req, res) => {
   console.log(JSON.stringify(req.body));
   Site.create(req.body)
