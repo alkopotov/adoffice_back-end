@@ -20,5 +20,11 @@ router.post('/', jsonParser, (req, res) => {
     .catch((err) => res.json(err));
 });
 
+router.put('/:id', jsonParser, (req, res) => { 
+  Category.update(req.body, {where: {id_category: +req.params.id}})
+    .then((data) => res.json(data))
+    .catch((err) => res.json(err));
+});
+
 
 module.exports = router;
