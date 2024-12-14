@@ -11,6 +11,7 @@ const Discount = require('./database/models/discount')
 // Routes
 const site = require('./routes/sites')
 const category = require('./routes/categories')
+const seasonal = require('./routes/seasonals')
 
 
 const PORT = 4444;
@@ -39,6 +40,7 @@ app.use(cors({
 
 app.use('/sites', site)
 app.use('/categories', category)
+app.use('/seasonals', seasonal)
 
 
 app.use(express.json());

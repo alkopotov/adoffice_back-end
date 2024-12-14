@@ -4,7 +4,7 @@ const Seasonal = require('../database/models/seasonal');
 const Adunit = require('../database/models/adunit');
 const Discount = require('../database/models/discount');
 
-const { request } = require('express');
+// const { request } = require('express');
 const express = require('express');
 
 const bodyParser = require('body-parser');
