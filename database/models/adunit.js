@@ -8,7 +8,7 @@ const Adunit = sequelize.define('adunit', {
     autoIncrement: true,
     primaryKey: true
   },
-  adunit_name: DataTypes.STRING,
+  adunit_position: DataTypes.STRING,
   adunit_is_mobile: DataTypes.BOOLEAN,
   adunit_cpm: {
     type: DataTypes.DECIMAL(8, 2),

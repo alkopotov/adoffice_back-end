@@ -1,12 +1,14 @@
 const { request } = require('express');
 const express = require('express');
 const sequelize = require('./database/database');
-const cors = require('cors')
-const Category = require('./database/models/category')
-const Site = require('./database/models/site')
-const Seasonal = require('./database/models/seasonal')
-const Adunit = require('./database/models/adunit')
-const Discount = require('./database/models/discount')
+const cors = require('cors');
+const Category = require('./database/models/category');
+const Site = require('./database/models/site');
+const Seasonal = require('./database/models/seasonal');
+const Adunit = require('./database/models/adunit');
+const Discount = require('./database/models/discount');
+const Adformat = require('./database/models/adformat');
+
 
 // Routes
 const site = require('./routes/sites')
@@ -22,11 +24,17 @@ Site.belongsTo(Category)
 Site.hasMany(Seasonal)
 Seasonal.belongsTo(Site)
 
-Site.hasMany(Adunit)
-Adunit.belongsTo(Site)
+// Site.hasMany(Adunit)
+// Adunit.belongsTo(Site)
 
 Site.hasMany(Discount)
 Discount.belongsTo(Site)
+
+Adformat.hasMany(Adunit)
+Adunit.belongsTo(Adformat)
+
+Adformat.belongsToMany(Site, {through: Adunit})
+Site.belongsToMany(Adformat, {through: Adunit})
 
 const app = express();
 app.use(express.static('public'))
