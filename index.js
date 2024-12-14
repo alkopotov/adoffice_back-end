@@ -24,9 +24,6 @@ Site.belongsTo(Category)
 Site.hasMany(Seasonal)
 Seasonal.belongsTo(Site)
 
-// Site.hasMany(Adunit)
-// Adunit.belongsTo(Site)
-
 Site.hasMany(Discount)
 Discount.belongsTo(Site)
 
@@ -35,6 +32,12 @@ Adunit.belongsTo(Adformat)
 
 Adformat.belongsToMany(Site, {through: Adunit})
 Site.belongsToMany(Adformat, {through: Adunit})
+
+Site.hasMany(Adunit)
+Adunit.belongsTo(Site)
+
+Adformat.hasMany(Adunit)
+Adunit.belongsTo(Adformat)
 
 const app = express();
 app.use(express.static('public'))
