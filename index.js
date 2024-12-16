@@ -2,6 +2,7 @@ const { request } = require('express');
 const express = require('express');
 const sequelize = require('./database/database');
 const cors = require('cors');
+const User = require('./database/models/user');
 const Category = require('./database/models/category');
 const Site = require('./database/models/site');
 const Seasonal = require('./database/models/seasonal');
@@ -10,13 +11,18 @@ const Discount = require('./database/models/discount');
 const Adformat = require('./database/models/adformat');
 
 
+
 // Routes
 const site = require('./routes/sites')
 const category = require('./routes/categories')
 const seasonal = require('./routes/seasonals')
+const user = require('./routes/users')
 
 
 const PORT = 4444;
+
+User.hasMany(Site)
+Site.belongsTo(User)
 
 Category.hasMany(Site)
 Site.belongsTo(Category)
@@ -52,6 +58,7 @@ app.use(cors({
 app.use('/sites', site)
 app.use('/categories', category)
 app.use('/seasonals', seasonal)
+app.use('/users', user)
 
 
 app.use(express.json());
