@@ -37,6 +37,10 @@ const User = sequelize.define('user', {
     defaultValue: false
   },
   user_token: DataTypes.STRING,
+  user_agent: {
+    type: DataTypes.STRING,
+    defaultValue: '',
+  },
 })
 
 module.exports = User;

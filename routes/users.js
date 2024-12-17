@@ -10,7 +10,6 @@ router.post('/register', jsonParser, (req, res) => {
   let userIsSuper = false;
   User.findAll().
     then((data) => {
-      console.log(data, "длина данных", data.length);
       if (data.length === 0) {
       userIsSuper = true;
       }
@@ -21,11 +20,23 @@ router.post('/register', jsonParser, (req, res) => {
         user_email: req.body.user_email,
         user_password: req.body.user_password,
         is_super: userIsSuper,
-        user_token: req.body.userAgent + Date.now()
+        user_token: `${Date.now()}`,
+        user_agent: req.body.user_agent,
       })
         .then((data) => res.json(data))
         .catch((err) => res.json(err));
     })
+    .catch((err) => res.json(err));
+});
+
+router.post('/check', jsonParser, (req, res) => {
+  User.findOne({
+    where: {
+      user_token: req.body.user_token,
+      user_agent: req.body.user_agent
+    }
+  })
+    .then((data) =>  data === null ? res.json({authorised: false}) : res.json({authorised: true}))
     .catch((err) => res.json(err));
 });
 
