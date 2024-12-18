@@ -36,7 +36,7 @@ router.post('/check', jsonParser, (req, res) => {
       user_agent: req.body.user_agent
     }
   })
-    .then((data) =>  data === null ? res.json({authorized: false}) : res.json({authorized: true}))
+    .then((data) => res.json({authorized: data !== null}))
     .catch((err) => res.json(err));
 });
 
