@@ -1,6 +1,5 @@
-# backend для реализации проекта по данному макету:
+# backend для реализации проекта adoffice:
 
-https://www.figma.com/file/ZKw7pJXIbltn9jLqxVLOcA/John-%2B-(Copy)?node-id=0%3A1&t=ikFg4YqjfKnv83GS-1
 
 # Это API, которое необходимо скачать и запустить локально (back-end для реализации проекта)
 
@@ -12,11 +11,10 @@ https://www.figma.com/file/ZKw7pJXIbltn9jLqxVLOcA/John-%2B-(Copy)?node-id=0%3A1&
 
 ## Ссылки API
 
-## GET
-### /works/all - ссылка на все работы
-### /works/1   - ссылка на работу с id=1
-### /blogs/   - ссылка на все блоги
+## POST
+### /users/register - регистрация пользователя
+### /users/check   - проверка аутентификации пользователя по токену (принимает токен и данные user_agent)
+### /users/login   - ссылка на все блоги
 
 
 ## Пример работы бекенда:
-http://localhost:4444/works/all
