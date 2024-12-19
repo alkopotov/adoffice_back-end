@@ -18,7 +18,7 @@ router.post('/register', jsonParser, (req, res) => {
         user_token: uuid.v4(),
         user_agent: req.body.user_agent,
       })
-        .then((data) => res.json(data))
+        .then((data) => res.json({ user_token: data.user_token }))
         .catch((err) => res.json(err));
     })
     .catch((err) => res.json(err));
@@ -36,13 +36,20 @@ router.post('/check', jsonParser, (req, res) => {
 });
 
 router.post('/login', jsonParser, (req, res) => {
-  User.findOne({
-    where: {
-      user_email: req.body.user_email,
-      user_password: req.body.user_password
+  let userToken = uuid.v4();
+  User.update(
+    {
+      user_token: userToken,
+      user_agent: req.body.user_agent
+    },
+    {
+      where: {
+        user_email: req.body.user_email,
+        user_password: req.body.user_password
+      }
     }
-  })
-    .then((data) => res.json(data))
+  )
+    .then((data) => data[0] ? res.json({ user_token: userToken }) : res.json({ auth_error: 'Неверный логин или пароль' }))
     .catch((err) => res.json(err));
 });
 
