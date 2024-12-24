@@ -64,5 +64,42 @@ router.post('/', jsonParser, (req, res) => {
   .catch((err) => res.json(err));
 });
 
+router.post('/admin', jsonParser, (req, res) => {
+  User.findOne({
+    where: {
+      user_token: req.body.user_token || ''
+    }
+  })
+  .then((user) => {    
+    if (user) {
+      if (user.is_super) {
+        Site.findAll(
+          {
+           include: [Category]
+          }
+      )
+        .then((data) => res.json(data))
+        .catch((err) => res.json(err));
+      } else {
+        Site.findAll(
+          {
+           where: {
+             userIdUser: user.id_user
+           },
+           include: [Category]
+          }
+      )
+        .then((data) => res.json(data))
+        .catch((err) => res.json(err));
+
+      }
+    } else {     
+      res.status(401).json({ auth_error: 'Неверный токен' });
+    }
+  })
+  .catch((err) => res.json(err));
+  
+});
+
 
 module.exports = router
