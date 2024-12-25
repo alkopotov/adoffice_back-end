@@ -8,12 +8,22 @@ const Site = sequelize.define('site', {
     autoIncrement: true,
     primaryKey: true
   },
-  site_name: DataTypes.STRING,
+  site_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    },
+    unique: true
+  },
   site_url: {
     type: DataTypes.STRING,
+    allowNull: false,
     validate: {
-      isUrl: true
-    }
+      isUrl: true,
+      notEmpty: true,
+    },
+    unique: true
   },
   site_cover_daily: DataTypes.DECIMAL(11,2),
   site_cover_weekly: DataTypes.DECIMAL(11,2),

@@ -13,4 +13,14 @@ router.post('/sites/:id', jsonParser, (req, res) => {
     .catch((err) => res.json(err));
 })
 
+router.get('/sites/:id', (req, res) => {
+  Seasonal.findAll({
+    where: {
+      siteIdSite: req.params.id
+    }
+  })
+    .then((data) => res.json(data.sort((a, b) => a.month -  b.month)))
+    .catch((err) => res.json(err));
+})
+
 module.exports = router;
