@@ -23,4 +23,10 @@ router.get('/sites/:id', (req, res) => {
     .catch((err) => res.json(err));
 })
 
+router.put('/:id', jsonParser, (req, res) => {
+  Seasonal.update(req.body, {where: {id_seasonal: +req.params.id}})
+    .then((data) => res.json(data))
+    .catch((err) => res.json(err));
+})
+
 module.exports = router;
