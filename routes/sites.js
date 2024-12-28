@@ -30,7 +30,7 @@ router.get('/all', (req, res) => {
 router.get('/:id', (req, res) => {
   Site.findByPk(
     req.params.id,
-    {include: [Category, Seasonal, {model: Adunit, iclude: Adformat}, Discount]}
+    { include: [Category, Seasonal, { model: Adunit, iclude: Adformat }, Discount] }
   )
     .then((data) => res.json(data))
     .catch((err) => res.json(err));
@@ -44,24 +44,24 @@ router.post('/', jsonParser, (req, res) => {
       user_token: req.body.user_token || ''
     }
   })
-  .then((user) => {    
-    if (user) {
-      Site.create({
-        site_name: req.body.site_name,
-        site_url: req.body.site_url,
-        site_cover_daily: req.body.site_cover_daily,
-        site_cover_weekly: req.body.site_cover_weekly,
-        site_cover_monthly: req.body.site_cover_monthly,
-        categoryIdCategory: req.body.categoryIdCategory,
-        userIdUser: user.id_user
-      })
-        .then((data) => res.json(data))
-        .catch((err) => res.json(err));
-    } else {     
-      res.status(401).json({ auth_error: 'Неверный токен' });
-    }
-  })
-  .catch((err) => res.json(err));
+    .then((user) => {
+      if (user) {
+        Site.create({
+          site_name: req.body.site_name,
+          site_url: req.body.site_url,
+          site_cover_daily: req.body.site_cover_daily,
+          site_cover_weekly: req.body.site_cover_weekly,
+          site_cover_monthly: req.body.site_cover_monthly,
+          categoryIdCategory: req.body.categoryIdCategory,
+          userIdUser: user.id_user
+        })
+          .then((data) => res.json(data))
+          .catch((err) => res.json(err));
+      } else {
+        res.status(401).json({ auth_error: 'Неверный токен' });
+      }
+    })
+    .catch((err) => res.json(err));
 });
 
 router.post('/admin', jsonParser, (req, res) => {
@@ -70,35 +70,35 @@ router.post('/admin', jsonParser, (req, res) => {
       user_token: req.body.user_token || ''
     }
   })
-  .then((user) => {    
-    if (user) {
-      if (user.is_super) {
-        Site.findAll(
-          {
-           include: [Category]
-          }
-      )
-        .then((data) => res.json(data))
-        .catch((err) => res.json(err));
-      } else {
-        Site.findAll(
-          {
-           where: {
-             userIdUser: user.id_user
-           },
-           include: [Category]
-          }
-      )
-        .then((data) => res.json(data))
-        .catch((err) => res.json(err));
+    .then((user) => {
+      if (user) {
+        if (user.is_super) {
+          Site.findAll(
+            {
+              include: [Category]
+            }
+          )
+            .then((data) => res.json(data))
+            .catch((err) => res.json(err));
+        } else {
+          Site.findAll(
+            {
+              where: {
+                userIdUser: user.id_user
+              },
+              include: [Category]
+            }
+          )
+            .then((data) => res.json(data))
+            .catch((err) => res.json(err));
 
+        }
+      } else {
+        res.status(401).json({ auth_error: 'Неверный токен' });
       }
-    } else {     
-      res.status(401).json({ auth_error: 'Неверный токен' });
-    }
-  })
-  .catch((err) => res.json(err));
-  
+    })
+    .catch((err) => res.json(err));
+
 });
 
 
