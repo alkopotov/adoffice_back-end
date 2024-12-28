@@ -91,7 +91,6 @@ router.post('/admin', jsonParser, (req, res) => {
           )
             .then((data) => res.json(data))
             .catch((err) => res.json(err));
-
         }
       } else {
         res.status(401).json({ auth_error: 'Неверный токен' });
