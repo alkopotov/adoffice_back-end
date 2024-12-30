@@ -19,6 +19,7 @@ const jsonParser = bodyParser.json();
 
 const router = express.Router();
 
+/** Получение данных всех сайтов */
 router.get('/all', (req, res) => {
   Site.findAll({
     include: [Category, Seasonal, Adunit, Discount]
@@ -27,6 +28,7 @@ router.get('/all', (req, res) => {
     .catch((err) => res.json(err));
 });
 
+/** Получение данных сайта по id */
 router.get('/:id', (req, res) => {
   Site.findByPk(
     req.params.id,
@@ -36,6 +38,7 @@ router.get('/:id', (req, res) => {
     .catch((err) => res.json(err));
 });
 
+/** Добавление нового сайта с проверкой токена */
 router.post('/', jsonParser, (req, res) => {
   console.log(JSON.stringify(req.body));
 
@@ -64,6 +67,7 @@ router.post('/', jsonParser, (req, res) => {
     .catch((err) => res.json(err));
 });
 
+/** Получение данных всех сайтов для конкретного админа */
 router.post('/admin', jsonParser, (req, res) => {
   User.findOne({
     where: {
@@ -97,8 +101,35 @@ router.post('/admin', jsonParser, (req, res) => {
       }
     })
     .catch((err) => res.json(err));
-
 });
+
+/** Обновление данных сайта с проверкой токена */
+router.patch('/:id', jsonParser, (req, res) => {
+  console.log(JSON.stringify(req.body));
+  
+  User.findOne({
+    where: {
+      user_token: req.body.user_token || ''
+    }
+  })
+    .then((user) => {
+      if (user) {
+        if (user.is_super) {
+          Site.update(req.body, { where: { id_site: +req.params.id } })
+            .then((data) => res.json(data))
+            .catch((err) => res.json(err));
+        } else {
+          Site.update(req.body, { where: { id_site: +req.params.id, userIdUser: user.id_user } })
+            .then((data) => res.json(data))
+            .catch((err) => res.json(err));
+        }
+      } else {
+        res.status(401).json({ auth_error: 'Неверный токен' });
+      }
+    })
+    .catch((err) => res.json(err));
+  })
+;
 
 
 module.exports = router
