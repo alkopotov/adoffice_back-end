@@ -105,7 +105,7 @@ router.post('/admin', jsonParser, (req, res) => {
 
 /** Обновление данных сайта с проверкой токена */
 router.patch('/:id', jsonParser, (req, res) => {
-  console.log(JSON.stringify(req.body));
+  console.log('такие данные', JSON.stringify(req.body));
   
   User.findOne({
     where: {
