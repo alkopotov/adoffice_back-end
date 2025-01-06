@@ -17,6 +17,7 @@ const site = require('./routes/sites')
 const category = require('./routes/categories')
 const seasonal = require('./routes/seasonals')
 const user = require('./routes/users')
+const discount = require('./routes/discounts')
 
 
 const PORT = 4444;
@@ -59,6 +60,7 @@ app.use('/sites', site)
 app.use('/categories', category)
 app.use('/seasonals', seasonal)
 app.use('/users', user)
+app.use('/discounts', discount)
 
 
 app.use(express.json());

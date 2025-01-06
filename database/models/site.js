@@ -25,6 +25,9 @@ const Site = sequelize.define('site', {
     },
     unique: true
   },
+  site_vat: {type: DataTypes.DECIMAL(4, 3),
+    defaultValue: 0
+  },
   site_cover_daily: DataTypes.DECIMAL(11, 2),
   site_cover_weekly: DataTypes.DECIMAL(11, 2),
   site_cover_monthly: DataTypes.DECIMAL(11, 2),

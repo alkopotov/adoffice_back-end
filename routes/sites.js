@@ -52,6 +52,7 @@ router.post('/', jsonParser, (req, res) => {
         Site.create({
           site_name: req.body.site_name,
           site_url: req.body.site_url,
+          site_vat: req.body.site_vat,
           site_cover_daily: req.body.site_cover_daily,
           site_cover_weekly: req.body.site_cover_weekly,
           site_cover_monthly: req.body.site_cover_monthly,
