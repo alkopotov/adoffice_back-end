@@ -28,6 +28,28 @@ router.get('/all', (req, res) => {
     .catch((err) => res.json(err));
 });
 
+router.get('/names', jsonParser, (req, res) => {
+  console.log('Такие данные', req.query.site_name);
+  
+  Site.count({
+    where: {
+      site_name: req.query.site_name
+    }
+  })
+    .then((data) => res.json(data === 0))
+    .catch((err) => res.json(err));
+})
+
+router.get('/urls', (req, res) => {
+  Site.count({
+    where: {
+      site_name: req.body.site_url
+    }
+  })
+    .then((data) => res.json(data))
+    .catch((err) => res.json(err));
+})
+
 /** Получение данных сайта по id */
 router.get('/:id', (req, res) => {
   Site.findByPk(
@@ -129,8 +151,8 @@ router.patch('/:id', jsonParser, (req, res) => {
       }
     })
     .catch((err) => res.json(err));
-  })
-;
+  }
+);
 
 
 module.exports = router
