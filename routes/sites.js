@@ -28,9 +28,8 @@ router.get('/all', (req, res) => {
     .catch((err) => res.json(err));
 });
 
-router.get('/names', jsonParser, (req, res) => {
-  console.log('Такие данные', req.query.site_name);
-  
+/** Проверка уникальности имени сайта */
+router.get('/names', (req, res) => {
   Site.count({
     where: {
       site_name: req.query.site_name
@@ -40,13 +39,14 @@ router.get('/names', jsonParser, (req, res) => {
     .catch((err) => res.json(err));
 })
 
+/** Проверка уникальности домена сайта */
 router.get('/urls', (req, res) => {
   Site.count({
     where: {
-      site_name: req.body.site_url
+      site_url: req.query.site_url
     }
   })
-    .then((data) => res.json(data))
+    .then((data) => res.json(data === 0))
     .catch((err) => res.json(err));
 })
 
