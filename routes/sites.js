@@ -50,6 +50,32 @@ router.get('/urls', (req, res) => {
     .catch((err) => res.json(err));
 })
 
+/** Удаление сайта по id c проверкой токена */
+router.delete('/delete/:id', jsonParser, (req, res) => {
+  User.findOne({
+    where: {
+      user_token: req.body.user_token || ''
+    }
+  })
+    .then((user) => {
+      if (user) {
+        if (user.is_super) {
+          Site.destroy({ where: { id_site: +req.params.id } })
+            .then((data) => res.json(data))
+            .catch((err) => res.json(err));
+        } 
+        else {
+          Site.destroy({ where: { id_site: +req.params.id, userIdUser: user.id_user } })
+            .then((data) => res.json(data))
+            .catch((err) => res.json(err));
+        }
+      } else {
+        res.status(401).json({ auth_error: 'Неверный токен' });
+      }
+    })
+    .catch((err) => res.json(err));
+});
+
 /** Получение данных сайта по id */
 router.get('/:id', (req, res) => {
   Site.findByPk(

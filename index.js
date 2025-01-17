@@ -28,10 +28,10 @@ Site.belongsTo(User)
 Category.hasMany(Site)
 Site.belongsTo(Category)
 
-Site.hasMany(Seasonal)
+Site.hasMany(Seasonal, {onDelete: 'CASCADE'})
 Seasonal.belongsTo(Site)
 
-Site.hasMany(Discount)
+Site.hasMany(Discount, {onDelete: 'CASCADE'})
 Discount.belongsTo(Site)
 
 Adformat.hasMany(Adunit)
@@ -40,7 +40,7 @@ Adunit.belongsTo(Adformat)
 Adformat.belongsToMany(Site, {through: Adunit})
 Site.belongsToMany(Adformat, {through: Adunit})
 
-Site.hasMany(Adunit)
+Site.hasMany(Adunit, {onDelete: 'CASCADE'})
 Adunit.belongsTo(Site)
 
 Adformat.hasMany(Adunit)
