@@ -16,7 +16,7 @@ const Adunit = sequelize.define('adunit', {
       min: 0
     }
   },
-  adunit_cover_ctr: {
+  adunit_ctr: {
     type: DataTypes.DECIMAL(3, 2),
     validate: {
       min: 0,
