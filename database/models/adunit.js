@@ -17,7 +17,7 @@ const Adunit = sequelize.define('adunit', {
     }
   },
   adunit_ctr: {
-    type: DataTypes.DECIMAL(3, 2),
+    type: DataTypes.DECIMAL(5, 4),
     validate: {
       min: 0,
       max: 1
