@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 
 const jsonParser = bodyParser.json();
 
-router.get('site/:id', (req, res) => {
+router.get('/sites/:id', (req, res) => {
   Adunit.findAll({
     where: {
       siteIdSite: req.params.id
