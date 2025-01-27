@@ -9,6 +9,7 @@ const Seasonal = require('./database/models/seasonal');
 const Adunit = require('./database/models/adunit');
 const Discount = require('./database/models/discount');
 const Adformat = require('./database/models/adformat');
+const Image = require('./database/models/image');
 
 
 
@@ -24,29 +25,32 @@ const adunit = require('./routes/adunits')
 
 const PORT = 4444;
 
-User.hasMany(Site)
-Site.belongsTo(User)
+User.hasMany(Site);
+Site.belongsTo(User);
 
-Category.hasMany(Site)
-Site.belongsTo(Category)
+Category.hasMany(Site);
+Site.belongsTo(Category);
 
-Site.hasMany(Seasonal, {onDelete: 'CASCADE'})
-Seasonal.belongsTo(Site)
+Site.hasMany(Seasonal, {onDelete: 'CASCADE'});
+Seasonal.belongsTo(Site);
 
-Site.hasMany(Discount, {onDelete: 'CASCADE'})
-Discount.belongsTo(Site)
+Site.hasMany(Discount, {onDelete: 'CASCADE'});
+Discount.belongsTo(Site);
 
-Adformat.hasMany(Adunit)
-Adunit.belongsTo(Adformat)
+Site.hasMany(Image, {onDelete: 'CASCADE'});
+Image.belongsTo(Site);
 
-Adformat.belongsToMany(Site, {through: Adunit})
-Site.belongsToMany(Adformat, {through: Adunit})
+Adformat.hasMany(Adunit);
+Adunit.belongsTo(Adformat);
 
-Site.hasMany(Adunit, {onDelete: 'CASCADE'})
-Adunit.belongsTo(Site)
+Adformat.belongsToMany(Site, {through: Adunit});
+Site.belongsToMany(Adformat, {through: Adunit});
 
-Adformat.hasMany(Adunit)
-Adunit.belongsTo(Adformat)
+Site.hasMany(Adunit, {onDelete: 'CASCADE'});
+Adunit.belongsTo(Site);
+
+Adformat.hasMany(Adunit);
+Adunit.belongsTo(Adformat);
 
 const app = express();
 app.use(express.static('public'))
