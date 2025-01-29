@@ -16,7 +16,7 @@ const Site = sequelize.define('site', {
     },
     unique: true
   },
-  site_url: {
+  site_domain: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {

@@ -42,10 +42,10 @@ router.get('/names', (req, res) => {
 })
 
 /** Проверка уникальности домена сайта */
-router.get('/urls', (req, res) => {
+router.get('/domains', (req, res) => {
   Site.count({
     where: {
-      site_url: req.query.site_url
+      site_domain: req.query.site_domain
     }
   })
     .then((data) => res.json(data === 0))
@@ -101,7 +101,7 @@ router.post('/', jsonParser, (req, res) => {
       if (user) {
         Site.create({
           site_name: req.body.site_name,
-          site_url: req.body.site_url,
+          site_domain: req.body.site_domain,
           site_vat: req.body.site_vat,
           site_cover_daily: req.body.site_cover_daily,
           site_cover_weekly: req.body.site_cover_weekly,
