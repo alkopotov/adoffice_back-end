@@ -21,6 +21,7 @@ const user = require('./routes/users')
 const discount = require('./routes/discounts')
 const adformat = require('./routes/adformats')
 const adunit = require('./routes/adunits')
+const image = require('./routes/images')
 
 
 const PORT = 4444;
@@ -62,13 +63,14 @@ app.use(cors({
 // app.use(express.urlencoded());
 
 
-app.use('/sites', site)
-app.use('/categories', category)
-app.use('/seasonals', seasonal)
-app.use('/users', user)
-app.use('/discounts', discount)
-app.use('/adformats', adformat)
-app.use('/adunits', adunit)
+app.use('/sites', site);
+app.use('/categories', category);
+app.use('/seasonals', seasonal);
+app.use('/users', user);
+app.use('/discounts', discount);
+app.use('/adformats', adformat);
+app.use('/adunits', adunit);
+app.use('/images', image);
 
 
 app.use(express.json());

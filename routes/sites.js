@@ -4,13 +4,15 @@ const Seasonal = require('../database/models/seasonal');
 const Adunit = require('../database/models/adunit');
 const Discount = require('../database/models/discount');
 const Adformat = require('../database/models/adformat');
+const Image = require('../database/models/image');
+const User = require('../database/models/user');
 
 
 // const { request } = require('express');
 const express = require('express');
 
 const bodyParser = require('body-parser');
-const User = require('../database/models/user');
+
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -80,7 +82,7 @@ router.delete('/delete/:id', jsonParser, (req, res) => {
 router.get('/:id', (req, res) => {
   Site.findByPk(
     req.params.id,
-    { include: [Category, Seasonal, { model: Adunit, iclude: Adformat }, Discount] }
+    { include: [Category, Seasonal, { model: Adunit, iclude: Adformat }, Discount, Image] }
   )
     .then((data) => res.json(data))
     .catch((err) => res.json(err));
@@ -181,4 +183,4 @@ router.patch('/:id', jsonParser, (req, res) => {
 );
 
 
-module.exports = router
+module.exports = router;
