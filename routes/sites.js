@@ -100,13 +100,7 @@ router.post('/', jsonParser, (req, res) => {
     .then((user) => {
       if (user) {
         Site.create({
-          site_name: req.body.site_name,
-          site_domain: req.body.site_domain,
-          site_vat: req.body.site_vat,
-          site_cover_daily: req.body.site_cover_daily,
-          site_cover_weekly: req.body.site_cover_weekly,
-          site_cover_monthly: req.body.site_cover_monthly,
-          categoryIdCategory: req.body.categoryIdCategory,
+          ...req.body,
           userIdUser: user.id_user
         })
           .then((data) => res.json(data))

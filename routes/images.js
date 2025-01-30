@@ -1,4 +1,7 @@
 const Image = require('../database/models/image');
+const User = require('../database/models/user');
+const Site = require('../database/models/site');
+
 const express = require('express');
 
 
@@ -8,7 +11,7 @@ const jsonParser = bodyParser.json();
 
 const router = express.Router();
 
-// Проверка уникальности адреса изображения
+/**  Проверка уникальности адреса изображения */
 router.get('/check-url', (req, res) => {
   Image.count({
     where: {
@@ -18,5 +21,44 @@ router.get('/check-url', (req, res) => {
     .then((data) => res.json(data === 0))
     .catch((err) => res.json(err));
 });
+
+//** Добавление изображения с проверкой токена */
+router.post('/add', jsonParser, (req, res) => {
+  User.findOne({
+    where: {
+      user_token: req.body.user_token || ''
+    }
+  })
+    .then((user) => {
+      if (user) {
+        if (user.is_super) {
+          Image.create(req.body)
+            .then((data) => res.json(data))
+            .catch((err) => res.json(err));
+        }
+        else {
+          Site.findOne({
+            where: {
+              id_site: req.body.siteIdSite,
+              userIdUser: user.id_user
+            }
+          })
+            .then((site) => {
+              if (site) {
+                Image.create(req.body)
+                  .then((data) => res.json(data))
+                  .catch((err) => res.json(err));
+              }
+              else res.status(401).json({ auth_error: 'Неверный токен' });
+            })
+            .catch((err) => res.json(err));
+        }
+      }
+      else res.status(401).json({ auth_error: 'Неверный токен' });
+    })
+    .catch((err) => res.json(err));
+
+}
+);
 
 module.exports = router;
