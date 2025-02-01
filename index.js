@@ -41,8 +41,8 @@ Discount.belongsTo(Site);
 Site.hasMany(Image, {onDelete: 'CASCADE'});
 Image.belongsTo(Site);
 
-Adformat.hasMany(Adunit);
-Adunit.belongsTo(Adformat);
+// Adformat.hasMany(Adunit);
+// Adunit.belongsTo(Adformat);
 
 Adformat.belongsToMany(Site, {through: Adunit});
 Site.belongsToMany(Adformat, {through: Adunit});
@@ -50,7 +50,9 @@ Site.belongsToMany(Adformat, {through: Adunit});
 Site.hasMany(Adunit, {onDelete: 'CASCADE'});
 Adunit.belongsTo(Site);
 
-Adformat.hasMany(Adunit);
+
+// Adformat.hasMany(Adunit);
+Adformat.hasOne(Adunit);
 Adunit.belongsTo(Adformat);
 
 const app = express();
