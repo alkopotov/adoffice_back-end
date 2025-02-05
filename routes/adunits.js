@@ -93,5 +93,41 @@ router.post('/delete', jsonParser, (req, res) => {
     .catch((err) => res.json(err));
 })
 
+
+router.patch('/update', jsonParser, (req, res) => {
+  User.findOne({
+    where: {
+      user_token: req.body.user_token || ''
+    }
+  })
+    .then((user) => {
+      if (user) {
+        if (user.is_super) {
+          Adunit.update(req.body, { where: { id_adunit: req.body.id_adunit } })
+            .then((data) => res.json(data))
+            .catch((err) => res.json(err));
+        }
+        else {
+          Site.findOne({
+            where: {
+              id_site: req.body.siteIdSite,
+              userIdUser: user.id_user
+            }
+          })
+            .then((site) => {
+              if (site) {
+                Adunit.update(req.body, { where: { id_adunit: req.body.id_adunit } })
+                  .then((data) => res.json(data))
+                  .catch((err) => res.json(err));
+              }
+              else res.status(401).json({ auth_error: 'Неверный токен' });
+            })
+            .catch((err) => res.json(err));
+        }
+      } else res.status(401).json({ auth_error: 'Неверный токен' });
+    })
+    .catch((err) => res.json(err));
+})
+
 module.exports = router;
 
