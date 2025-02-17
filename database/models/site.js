@@ -16,6 +16,13 @@ const Site = sequelize.define('site', {
     },
     unique: true
   },
+  site_description: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
   site_domain: {
     type: DataTypes.STRING,
     allowNull: false,
