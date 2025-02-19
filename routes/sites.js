@@ -21,6 +21,30 @@ const jsonParser = bodyParser.json();
 
 const router = express.Router();
 
+/** Получение данных для карточек главной страницы */
+router.get('/main', async (req, res) => {
+
+  const sites = await Site.findAll();
+  const adunits = await Adunit.findAll();
+
+  let totalCover = sites.reduce((total, site) => {
+    return total + site.site_cover_monthly;
+  }, 0);
+
+  let totalViews = adunits.reduce((total, adunit) => {
+    return total + adunit.adunit_views_daily;
+  }, 0);
+  
+  res.json({
+    sites_number: sites.length,
+    total_monthly_cover: totalCover,
+    adunits_number: adunits.length,
+    total_daily_views: totalViews
+  });
+
+
+});
+
 /** Получение данных всех сайтов */
 router.get('/all', (req, res) => {
   Site.findAll({
