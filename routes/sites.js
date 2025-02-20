@@ -45,7 +45,7 @@ router.get('/main', async (req, res) => {
 
 });
 
-/** Получение данных всех сайтов */
+/** Получение всех данных всех сайтов */
 router.get('/all', (req, res) => {
   Site.findAll({
     include: [Category, Seasonal, Adunit, Discount]
