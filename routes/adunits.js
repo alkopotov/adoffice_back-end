@@ -10,6 +10,32 @@ const bodyParser = require('body-parser');
 
 const jsonParser = bodyParser.json();
 
+router.get('/all', (req, res) => {
+  Adunit.findAll({
+    include: [Adformat, Site]
+  })
+    .then((data) => res.json(data.map((adunit) => {
+      return {
+        id_adunit: adunit.id_adunit,
+        adunit_position: adunit.adunit_position,
+        adunit_is_mobile: adunit.adunit_is_mobile,
+        adunit_cpm: adunit.adunit_cpm,
+        adunit_ctr: adunit.adunit_ctr,
+        adunit_picture: adunit.adunit_picture,
+        adunit_demo_url: adunit.adunit_demo_url,
+        adunit_views_daily: adunit.adunit_views_daily,
+        adunit_cover_daily: adunit.adunit_cover_daily,
+        adunit_cover_weekly: adunit.adunit_cover_weekly,
+        adunit_cover_monthly: adunit.adunit_cover_monthly,
+        siteIdSite: adunit.siteIdSite,
+        adformat: adunit.adformat,
+        site_domain: adunit.site.dataValues.site_domain,
+        site_name: adunit.site.dataValues.site_name
+      }
+    })))
+    .catch((err) => res.json(err));
+});
+
 router.get('/sites/:id', (req, res) => {
   Adunit.findAll({
     where: {
