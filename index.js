@@ -41,8 +41,8 @@ Discount.belongsTo(Site);
 Site.hasMany(Image, {onDelete: 'CASCADE'});
 Image.belongsTo(Site);
 
-// Adformat.hasMany(Adunit);
-// Adunit.belongsTo(Adformat);
+Adformat.hasMany(Adunit);
+Adunit.belongsTo(Adformat);
 
 Adformat.belongsToMany(Site, {through: Adunit});
 Site.belongsToMany(Adformat, {through: Adunit});

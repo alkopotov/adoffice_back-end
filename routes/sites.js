@@ -106,7 +106,7 @@ router.delete('/delete/:id', jsonParser, (req, res) => {
 router.get('/:id', (req, res) => {
   Site.findByPk(
     req.params.id,
-    { include: [Category, Seasonal, { model: Adunit, iclude: Adformat }, Discount, Image] }
+    { include: [Category, Seasonal, {model: Adunit, iclude: Adformat}, Discount, Image] }
   )
     .then((data) => res.json(data))
     .catch((err) => res.json(err));
@@ -114,8 +114,6 @@ router.get('/:id', (req, res) => {
 
 /** Добавление нового сайта с проверкой токена */
 router.post('/', jsonParser, (req, res) => {
-  console.log(JSON.stringify(req.body));
-
   User.findOne({
     where: {
       user_token: req.body.user_token || ''
