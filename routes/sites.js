@@ -54,6 +54,15 @@ router.get('/all', (req, res) => {
     .catch((err) => res.json(err));
 });
 
+/** Получение сезонных коэффициентов и скидок для медиаплана */
+router.post('/mediaplan', jsonParser, (req, res) => {
+  Site.findAll({
+    include: [Seasonal, Discount]
+  })
+    .then((data) => res.json(data.filter((site) => req.body.siteIds.includes(site.id_site))))
+    .catch((err) => res.json(err));
+})
+
 /** Проверка уникальности имени сайта */
 router.get('/names', (req, res) => {
   Site.count({
@@ -64,6 +73,8 @@ router.get('/names', (req, res) => {
     .then((data) => res.json(data === 0))
     .catch((err) => res.json(err));
 })
+
+
 
 /** Проверка уникальности домена сайта */
 router.get('/domains', (req, res) => {
