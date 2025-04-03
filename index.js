@@ -1,4 +1,3 @@
-const { request } = require('express');
 const express = require('express');
 const sequelize = require('./database/database');
 const cors = require('cors');
@@ -10,6 +9,7 @@ const Adunit = require('./database/models/adunit');
 const Discount = require('./database/models/discount');
 const Adformat = require('./database/models/adformat');
 const Image = require('./database/models/image');
+
 
 
 

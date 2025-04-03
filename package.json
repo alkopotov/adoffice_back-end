@@ -1,11 +1,12 @@
 {
-  "name": "project_backend",
+  "name": "adoffice_backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "REST API for AdOffice project",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "postgre": "nodemon index.js -- postgre"
   },
   "author": "kopotov",
   "license": "ISC",
@@ -13,6 +14,8 @@
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "express": "^4.18.1",
+    "pg": "^8.14.1",
+    "pg-hstore": "^2.3.4",
     "sequelize": "^6.23.2",
     "sqlite3": "^5.1.1",
     "uuid": "^11.0.3"
