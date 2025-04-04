@@ -2,6 +2,7 @@ const sequelize = require('../database');
 const { DataTypes } = require('sequelize')
 const { Sequelize } = require('sequelize')
 
+//** Определение модели рекламного слота */
 const Adunit = sequelize.define('adunit', {
   id_adunit: {
     type: Sequelize.INTEGER,

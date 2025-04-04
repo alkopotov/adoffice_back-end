@@ -10,9 +10,6 @@ const Discount = require('./database/models/discount');
 const Adformat = require('./database/models/adformat');
 const Image = require('./database/models/image');
 
-
-
-
 // Routes
 const site = require('./routes/sites')
 const category = require('./routes/categories')
@@ -23,9 +20,9 @@ const adformat = require('./routes/adformats')
 const adunit = require('./routes/adunits')
 const image = require('./routes/images')
 
-
 const PORT = 4444;
 
+//** Определение связей сущностей БД */
 User.hasMany(Site);
 Site.belongsTo(User);
 
@@ -50,8 +47,6 @@ Site.belongsToMany(Adformat, {through: Adunit});
 Site.hasMany(Adunit, {onDelete: 'CASCADE'});
 Adunit.belongsTo(Site);
 
-
-// Adformat.hasMany(Adunit);
 Adformat.hasOne(Adunit);
 Adunit.belongsTo(Adformat);
 
@@ -61,10 +56,7 @@ app.use(cors({
     origin: '*'
 }));
 
-// Не уверен, что это ни на что не влияет - давало предупреждение deprecated
-// app.use(express.urlencoded());
-
-
+//** Подключение маршрутов API */
 app.use('/sites', site);
 app.use('/categories', category);
 app.use('/seasonals', seasonal);
@@ -74,13 +66,12 @@ app.use('/adformats', adformat);
 app.use('/adunits', adunit);
 app.use('/images', image);
 
-
 app.use(express.json());
 
 const start = async () =>{
     try{
         await sequelize.sync().then(
-            result => {/*console.log(result) */},
+            result => {},
             err => console.log(err)
         );
         

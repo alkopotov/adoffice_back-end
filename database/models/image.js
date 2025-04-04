@@ -2,6 +2,7 @@ const sequelize = require('../database');
 const { DataTypes } = require('sequelize')
 const { Sequelize } = require('sequelize')
 
+//** Определение модели ссылки на изображение */
 const Image = sequelize.define('image', {
   id_image : {
     type: Sequelize.INTEGER,

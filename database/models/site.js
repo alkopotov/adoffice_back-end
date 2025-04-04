@@ -2,6 +2,7 @@ const sequelize = require('../database');
 const { DataTypes } = require('sequelize')
 const { Sequelize } = require('sequelize')
 
+//** Определение модели сайта */
 const Site = sequelize.define('site', {
   id_site: {
     type: Sequelize.INTEGER,

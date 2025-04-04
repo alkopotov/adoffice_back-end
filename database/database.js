@@ -2,9 +2,9 @@ const { Sequelize } = require('sequelize');
 const { POSTGRE_DB_NAME, POSTGRE_ADMIN, POSTGRE_ADMIN_PASSWORD } = require('./settings');
 Sequelize.DataTypes.postgres.DECIMAL.parse = parseFloat;
 
-
 const DIALECT = process.argv[2] || 'SQLITE';
 
+//** Определение параметров базы данных */
 const sequelize = DIALECT === 'SQLITE' ?
   new Sequelize({
     dialect: 'sqlite',
@@ -21,9 +21,4 @@ const sequelize = DIALECT === 'SQLITE' ?
     }
   })
   
-  var types = require('pg').types
-
-  types.setTypeParser(1700, (val) => parseFloat(val))
-
-
 module.exports = sequelize;

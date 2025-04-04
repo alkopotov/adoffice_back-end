@@ -2,6 +2,7 @@ const sequelize = require('../database');
 const { DataTypes } = require('sequelize');
 const { Sequelize } = require('sequelize');
 
+//** Определение модели уровня скидки */
 const Discount = sequelize.define('discount', {
   id_discount : {
     type: Sequelize.INTEGER,

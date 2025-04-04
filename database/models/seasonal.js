@@ -2,6 +2,7 @@ const sequelize = require('../database');
 const { DataTypes } = require('sequelize')
 const { Sequelize } = require('sequelize')
 
+//** Определение модели сезонного коэффициента */
 const Seasonal = sequelize.define('seasonal', {
   id_seasonal : {
     type: Sequelize.INTEGER,

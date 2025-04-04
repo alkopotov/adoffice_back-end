@@ -2,6 +2,7 @@ const sequelize = require('../database');
 const { DataTypes } = require('sequelize')
 const { Sequelize } = require('sequelize')
 
+//** Определение модели рекламного формата */
 const Adformat = sequelize.define('adformat', {
   id_adformat : {
     type: Sequelize.INTEGER,
