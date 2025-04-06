@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-const { POSTGRE_DB_NAME, POSTGRE_ADMIN, POSTGRE_ADMIN_PASSWORD } = require('./settings');
+const { POSTGRE_DB_NAME, POSTGRE_ADMIN, POSTGRE_ADMIN_PASSWORD, HOME_ADM_PASS } = require('./settings');
 Sequelize.DataTypes.postgres.DECIMAL.parse = parseFloat;
 
 const DIALECT = process.argv[2] || 'SQLITE';
@@ -13,7 +13,7 @@ const sequelize = DIALECT === 'SQLITE' ?
       timestamps: false
     }
   }) :
-  new Sequelize(POSTGRE_DB_NAME, POSTGRE_ADMIN, POSTGRE_ADMIN_PASSWORD, {
+  new Sequelize(POSTGRE_DB_NAME, POSTGRE_ADMIN, HOME_ADM_PASS, {
     dialect: 'postgres',
     host: 'localhost',
     define: {
