@@ -7,17 +7,11 @@ const Adformat = require('../database/models/adformat');
 const Image = require('../database/models/image');
 const User = require('../database/models/user');
 
-
-// const { request } = require('express');
 const express = require('express');
 
 const bodyParser = require('body-parser');
 
-
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
-
 const jsonParser = bodyParser.json();
-
 
 const router = express.Router();
 
@@ -40,9 +34,7 @@ router.get('/main', async (req, res) => {
     total_monthly_cover: totalCover,
     adunits_number: adunits.length,
     total_daily_views: totalViews
-  });
-
-
+  })
 });
 
 /** Получение всех данных всех сайтов */
@@ -73,8 +65,6 @@ router.get('/names', (req, res) => {
     .then((data) => res.json(data === 0))
     .catch((err) => res.json(err));
 })
-
-
 
 /** Проверка уникальности домена сайта */
 router.get('/domains', (req, res) => {
