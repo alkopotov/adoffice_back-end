@@ -57,7 +57,7 @@ app.use(cors({
 }));
 
 //** Подключение маршрутов API */
-app.use('/sites', site);
+app.use('adoffice/sites', site);
 app.use('/categories', category);
 app.use('/seasonals', seasonal);
 app.use('/users', user);
