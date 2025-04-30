@@ -172,9 +172,7 @@ router.post('/admin', jsonParser, (req, res) => {
 });
 
 /** Обновление данных сайта с проверкой токена */
-router.patch('/:id', jsonParser, (req, res) => {
-  console.log('такие данные', JSON.stringify(req.body));
-  
+router.patch('/:id', jsonParser, (req, res) => { 
   User.findOne({
     where: {
       user_token: req.body.user_token || ''
